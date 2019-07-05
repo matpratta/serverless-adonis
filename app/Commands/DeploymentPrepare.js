@@ -43,7 +43,13 @@ class DeploymentPrepare extends Command {
 
       // Sets project up
       this.info('Setting up Now.sh project...')
-      project.name = await this.ask('Enter Now.sh project name', Env.get('APP_NAME'))
+      project.name = await this.ask('Enter Now.sh project name:', Env.get('APP_NAME'))
+
+      // Configures alias
+      let setupAlias = await this.confirm('Do you want to customize your project alias?')
+      if (setupAlias) {
+        project.alias = await this.ask('Enter Now.sh project alias:', project.name)
+      }
 
       // Saves
       await NowAPI.updateProject(project)
@@ -54,7 +60,6 @@ class DeploymentPrepare extends Command {
     await NowAPI.envSet('HOST', '127.0.0.1')
     await NowAPI.envSet('PORT', '3333')
     await NowAPI.envSet('NODE_ENV', 'production')
-    await NowAPI.envSet('CACHE_VIEWS', 'false')
 
     // Ensures the now.env file exists, just a dummy file because all env variables should come from the deployment...
     this.info('Configuring ENV_PATH...')
