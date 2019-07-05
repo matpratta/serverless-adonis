@@ -19,7 +19,44 @@ class DeploymentPrepare extends Command {
   async handle (args, options) {
     this.info('Now.sh deployment configuration wizard.')
 
-    // Ensures the now.env file exists...
+    // Checks if project file exists
+    let projectExists = await this.pathExists(NowAPI.getProjectFile())
+    
+    // If not, setup.
+    if (!projectExists) {
+      // Creates a standard project base for Now v2
+      let project = {
+        version: 2,
+        builds: [{
+          src: 'server.js',
+          use: '@now/node-server',
+          config: {
+            includeFiles: ['**'],
+            maxLambdaSize: '50mb'
+          }
+        }],
+        routes: [{
+          src: '/(.*)',
+          dest: '/server.js'
+        }]
+      }
+
+      // Sets project up
+      this.info('Setting up Now.sh project...')
+      project.name = await this.ask('Enter Now.sh project name', Env.get('APP_NAME'))
+
+      // Saves
+      await NowAPI.updateProject(project)
+    }
+
+    // Setting up environment...
+    this.info('Configuring environment...')
+    await NowAPI.envSet('HOST', '127.0.0.1')
+    await NowAPI.envSet('PORT', '3333')
+    await NowAPI.envSet('NODE_ENV', 'production')
+    await NowAPI.envSet('CACHE_VIEWS', 'false')
+
+    // Ensures the now.env file exists, just a dummy file because all env variables should come from the deployment...
     this.info('Configuring ENV_PATH...')
     await this.ensureFile(__dirname + '/../../now.env')
     await NowAPI.envSet('ENV_PATH', 'now.env')

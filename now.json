@@ -1,9 +1,8 @@
 {
   "version": 2,
-  "name": "serverless-adonis",
   "builds": [
     {
-      "src": "/server.js",
+      "src": "server.js",
       "use": "@now/node-server",
       "config": {
         "includeFiles": [
@@ -19,7 +18,12 @@
       "dest": "/server.js"
     }
   ],
+  "name": "serverless-adonis",
   "env": {
+    "HOST": "127.0.0.1",
+    "PORT": "3333",
+    "NODE_ENV": "production",
+    "CACHE_VIEWS": "false",
     "ENV_PATH": "now.env",
     "APP_KEY": "@serverless-adonis-app_key"
   }
