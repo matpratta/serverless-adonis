@@ -54,7 +54,7 @@ const aliases = {}
 |
 */
 const commands = [
-  'App/Commands/DeploymentEnv'
+  'App/Commands/DeploymentPrepare'
 ]
 
 module.exports = { providers, aceProviders, aliases, commands }

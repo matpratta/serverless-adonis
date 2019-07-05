@@ -1,19 +1,26 @@
 {
-    "version": 2,
-    "name": "serverless-adonis",
-    "builds": [{
+  "version": 2,
+  "name": "serverless-adonis",
+  "builds": [
+    {
       "src": "/server.js",
       "use": "@now/node-server",
       "config": {
-        "includeFiles": ["**"],
+        "includeFiles": [
+          "**"
+        ],
         "maxLambdaSize": "50mb"
       }
-    }],
-    "routes": [{
+    }
+  ],
+  "routes": [
+    {
       "src": "/(.*)",
       "dest": "/server.js"
-    }],
-    "env": {
-      "ENV_PATH": "now.env"
     }
+  ],
+  "env": {
+    "ENV_PATH": "now.env",
+    "APP_KEY": "@serverless-adonis-app_key"
+  }
 }
