@@ -1,6 +1,6 @@
-# Adonis API application
+# Adonis serverless API application
 
-This is the boilerplate for creating an API server in AdonisJs, it comes pre-configured with.
+This is the boilerplate for creating an serverless API server in AdonisJs and Now.sh, it comes pre-configured with.
 
 1. Bodyparser
 2. Authentication
@@ -13,10 +13,12 @@ This is the boilerplate for creating an API server in AdonisJs, it comes pre-con
 Use the adonis command to install the blueprint
 
 ```bash
-adonis new yardstick --api-only
+adonis new yardstick --blueprint=MatheusMK3/serverless-adonis
 ```
 
 or manually clone the repo and then run `npm install`.
+
+For more details regarding usage, please refer to the following guide: https://blog.matheus.io/serverless-adonis-in-zeit-now/
 
 
 ### Migrations
